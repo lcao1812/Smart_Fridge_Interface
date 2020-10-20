@@ -8,10 +8,9 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:nestedScrollingEnabled="true"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="16dp"
+        android:id="@+id/inventory_scroll_view"
+        android:fillViewport="true"
         >
 
         <LinearLayout
