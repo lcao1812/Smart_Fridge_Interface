@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.Set;
 
 public class FoodItem {
-    public FoodItem(String name, int amount, String date, Set allergens, String owner) throws ParseException {
+    public FoodItem(String name, int amount, Date date, Set allergens, String owner) throws ParseException {
         this.name = name;
         this.amount = amount;
         this.allergens = allergens;
-        this.buyDate = new SimpleDateFormat("MM dd, yyyy").parse(date);
+        this.buyDate = date;
         this.owner = owner;
     }
 

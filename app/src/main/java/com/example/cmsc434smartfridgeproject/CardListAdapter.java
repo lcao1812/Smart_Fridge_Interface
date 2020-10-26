@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,15 +16,17 @@ import androidx.annotation.LayoutRes;
 
 import com.example.cmsc434smartfridgeproject.utils.FoodItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class CardListAdapter extends BaseAdapter{
     List<FoodItem> result;
     Context context;
     int currentView;
-    int [] imageId;
+    List<Integer> imageId;
     private static LayoutInflater inflater=null;
-    public CardListAdapter(Context givenContext, @LayoutRes int listView, List<FoodItem> foods, int[] prgmImages) {
+    public CardListAdapter(Context givenContext, @LayoutRes int listView, List<FoodItem> foods, List<Integer> prgmImages) {
         // TODO Auto-generated constructor stub
         result=foods;
         context=givenContext;
@@ -56,30 +60,49 @@ public class CardListAdapter extends BaseAdapter{
         TextView foodAmount;
         TextView foodAllergens;
         ImageView food_image;
+        ImageButton incAmount;
+        ImageButton decAmount;
 
     }
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         Holder holder=new Holder();
-        View rowView;
+        final View rowView;
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         rowView = inflater.inflate(this.currentView, null);
         holder.foodName=(TextView) rowView.findViewById(R.id.inventory_card_food_name);
         holder.foodDate=(TextView) rowView.findViewById(R.id.inventory_card_food_buy_date);
         holder.foodAmount=(TextView) rowView.findViewById(R.id.inventory_card_food_amount);
         holder.foodAllergens=(TextView) rowView.findViewById(R.id.inventory_card_food_allergen);
         holder.food_image=(ImageView) rowView.findViewById(R.id.inventory_card_image);
+        holder.incAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_increase_food_amount);
+        holder.decAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_decrease_food_amount);
         holder.foodName.setText(result.get(position).getName());
-        holder.foodDate.setText(result.get(position).getBuyDate().toString());
+
+        holder.foodDate.setText(formatter.format(result.get(position).getBuyDate()));
         holder.foodAmount.setText(String.valueOf(result.get(position).getAmount()));
 //        need to change here
         holder.foodAllergens.setText(result.get(position).getName());
-        holder.food_image.setImageResource(imageId[position]);
-        rowView.setOnClickListener(new OnClickListener() {
+        holder.food_image.setImageResource(imageId.get(position));
+        holder.incAmount.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result.get(position), Toast.LENGTH_LONG).show();
+
+                int amount= result.get(position).getAmount() + 1;
+                result.get(position).setAmount(amount);
+                ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
+            }
+        });
+        holder.decAmount.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                int amount= result.get(position).getAmount()-1 > 0 ? result.get(position).getAmount() - 1 : 0;
+                result.get(position).setAmount(amount);
+                ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
             }
         });
         return rowView;
