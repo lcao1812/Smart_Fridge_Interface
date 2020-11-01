@@ -85,16 +85,20 @@ public class CartItemFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView text = (TextView) view;
 
+
                 if ((text.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
                     text.setPaintFlags( text.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+
                 } else {
                     text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
 
+
                 // check box
                 CheckedTextView checkedTextView = ((CheckedTextView)view);
                 checkedTextView.setChecked(!checkedTextView.isChecked());
+
             }
         });
 
