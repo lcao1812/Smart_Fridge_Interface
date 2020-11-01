@@ -1,5 +1,8 @@
 package com.example.cmsc434smartfridgeproject;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,14 +28,16 @@ public class CardListAdapter extends BaseAdapter{
     List<FoodItem> result;
     Context context;
     int currentView;
+    Activity mainActivity;
     List<Integer> imageId;
     private static LayoutInflater inflater=null;
-    public CardListAdapter(Context givenContext, @LayoutRes int listView, List<FoodItem> foods, List<Integer> prgmImages) {
+    public CardListAdapter(Context givenContext, Activity activity,@LayoutRes int listView, List<FoodItem> foods, List<Integer> prgmImages) {
         // TODO Auto-generated constructor stub
         result=foods;
         context=givenContext;
         imageId=prgmImages;
         currentView = listView;
+        mainActivity = activity;
         inflater = ( LayoutInflater )context.
                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -44,7 +50,11 @@ public class CardListAdapter extends BaseAdapter{
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
-        return position;
+        return result.get(position);
+    }
+    public Object getItemImage(int position) {
+        // TODO Auto-generated method stub
+        return imageId.get(position);
     }
 
     @Override
@@ -52,7 +62,11 @@ public class CardListAdapter extends BaseAdapter{
         // TODO Auto-generated method stub
         return position;
     }
-
+    public void remove(int position){
+        result.remove(position);
+        imageId.remove(position);
+        notifyDataSetChanged();
+    }
     public class Holder
     {
         TextView foodName;
@@ -80,10 +94,20 @@ public class CardListAdapter extends BaseAdapter{
         holder.decAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_decrease_food_amount);
         holder.foodName.setText(result.get(position).getName());
 
-        holder.foodDate.setText(formatter.format(result.get(position).getBuyDate()));
+        holder.foodDate.setText("Bought on " + formatter.format(result.get(position).getBuyDate()));
         holder.foodAmount.setText(String.valueOf(result.get(position).getAmount()));
-//        need to change here
-        holder.foodAllergens.setText(result.get(position).getName());
+        StringBuilder foodAllergies = new StringBuilder();
+        int i = 0;
+        for(String foodAllergy: result.get(position).getAllergens()){
+            if(i < result.get(position).getAllergens().size() - 1){
+                foodAllergies.append(foodAllergy + ", ");
+            }else{
+                foodAllergies.append(foodAllergy);
+            }
+            i++;
+        }
+
+        holder.foodAllergens.setText(foodAllergies.toString());
         holder.food_image.setImageResource(imageId.get(position));
         holder.incAmount.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,10 +125,46 @@ public class CardListAdapter extends BaseAdapter{
                 // TODO Auto-generated method stub
 
                 int amount= result.get(position).getAmount()-1 > 0 ? result.get(position).getAmount() - 1 : 0;
-                result.get(position).setAmount(amount);
-                ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
+                if(amount == 0){
+                    remove(position);
+                }else {
+                    result.get(position).setAmount(amount);
+                    ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
+                }
+
+            }
+        });
+        rowView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                deleteItem(position);
+                return false;
             }
         });
         return rowView;
+    }
+    private void deleteItem(final int position) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle("Search for a item");
+
+        View v = LayoutInflater.from(mainActivity).inflate(R.layout.delete_item, null, false);
+
+        builder.setView(v);
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                remove(position);
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.show();
     }
 }
