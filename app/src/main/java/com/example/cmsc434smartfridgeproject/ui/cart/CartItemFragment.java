@@ -67,7 +67,7 @@ public class CartItemFragment extends Fragment {
         toPurchase.add("Milk");
 
         cartList = (ListView) itemCart.findViewById(R.id.toPurchaseList);
-        cartAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, toPurchase);
+        cartAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, toPurchase);
         cartList.setAdapter(cartAdapter);
 
         add_fab = (FloatingActionButton) itemCart.findViewById(R.id.fab_add_item);
@@ -84,7 +84,16 @@ public class CartItemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 TextView text = (TextView) view;
-                text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                if ((text.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0){
+                    text.setPaintFlags(text.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                } else {
+                    text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+
+
+                CheckedTextView checkedTextView = ((CheckedTextView)view);
+                checkedTextView.setChecked(!checkedTextView.isChecked());
             }
         });
 
