@@ -93,8 +93,6 @@ public class CartItemFragment extends Fragment {
                     text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 }
 
-
-
                 // check box
                 CheckedTextView checkedTextView = ((CheckedTextView)view);
                 checkedTextView.setChecked(!checkedTextView.isChecked());
