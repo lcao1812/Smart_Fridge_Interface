@@ -2,28 +2,37 @@ package com.example.cmsc434smartfridgeproject.ui.cart;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cmsc434smartfridgeproject.R;
+import com.example.cmsc434smartfridgeproject.utils.FoodItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.w3c.dom.Text;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Locale;
 
 public class CartFragment extends Fragment{
@@ -31,16 +40,26 @@ public class CartFragment extends Fragment{
     private CartViewModel cartViewModel;
     private ArrayList<String> itemList = new ArrayList<>();
     private ListView cartList;
-    ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         cartViewModel =
                 ViewModelProviders.of(this).get(CartViewModel.class);
         View cart = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        itemList.add("Nicky's birthday");
+        itemList.add("Week of Sept 2nd");
+        itemList.add("This is an example scenario -- Number 1");
+        itemList.add("This is an example scenario -- Number 2");
+        itemList.add("This is an example scenario -- Number 3");
+        itemList.add("This is an example scenario -- Number 4");
+
         cartList = (ListView) cart.findViewById(R.id.itemList);
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, itemList);
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList);
         cartList.setAdapter(adapter);
+
 
         // action for the fab button
         add_fab = (FloatingActionButton) cart.findViewById(R.id.fab_add);
@@ -50,12 +69,45 @@ public class CartFragment extends Fragment{
                 // Function to add Item here
                 addCartItem();
                 // ****************************
-                Snackbar.make(v, "Item Added To The Cart", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
             }
         });
+
+        cartList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Toast.makeText(getContext(), "item clicked", Toast.LENGTH_SHORT).show();
+
+                String selected = itemList.get(position);
+                CartItemFragment cartItemFragment = new CartItemFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("selected_cart", selected);
+
+                cartItemFragment.setArguments(bundle);
+
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.nav_host_fragment, cartItemFragment, cartItemFragment.getTag()).commit();
+            }
+        });
+
+        cartList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                itemList.remove(position);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
+
+                return true;
+            }
+        });
+
         return cart;
     }
+
+
 
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -71,7 +123,7 @@ public class CartFragment extends Fragment{
                 if (!etItem.getText().toString().isEmpty()) {
                     itemList.add(etItem.getText().toString().trim());
                     adapter.notifyDataSetChanged();
-
+                    Toast.makeText(getContext() , "item added to the cart", Toast.LENGTH_SHORT).show();
                 } else {
                     etItem.setError("add item here !");
                 }
