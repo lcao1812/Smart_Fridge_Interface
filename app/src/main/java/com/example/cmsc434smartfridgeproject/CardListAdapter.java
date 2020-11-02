@@ -145,26 +145,20 @@ public class CardListAdapter extends BaseAdapter{
     }
     private void deleteItem(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
-        builder.setTitle("Search for a item");
-
         View v = LayoutInflater.from(mainActivity).inflate(R.layout.delete_item, null, false);
-
         builder.setView(v);
-
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 remove(position);
             }
         });
-
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-
         builder.show();
     }
 }

@@ -15,22 +15,22 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cmsc434smartfridgeproject.CardListAdapter;
 import com.example.cmsc434smartfridgeproject.R;
+import com.example.cmsc434smartfridgeproject.utils.CSVFile;
 import com.example.cmsc434smartfridgeproject.utils.FoodItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,20 +63,20 @@ public class InventoryFragment extends Fragment {
 
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
 
-//        onCreateOptionsMenu(R.menu.action_bar,actionBar.)
-//        actionBar.setIcon(R.drawable.);
-//        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+
         list = new ArrayList<FoodItem>();
         imgs = new ArrayList<Integer>();
-
+        InputStream inputStream = getResources().openRawResource(R.raw.data);
+        CSVFile csvFile = new CSVFile(inputStream);
         try {
-            for (int i = 0; i < 10 ; i++){
-                imgs.add( R.drawable.ic_launcher_foreground);
-                list.add(new FoodItem("orange",2,new Date(),new HashSet(),"Bob"));
-            }
+            list = csvFile.read();
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+            for (int i = 0; i < 10 ; i++){
+                imgs.add( R.drawable.ic_launcher_foreground);
+            }
 
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
         fridgelistView = root.findViewById(R.id._fridge_inventory_list);
@@ -92,24 +92,9 @@ public class InventoryFragment extends Fragment {
         });
         return root;
     }
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.add_menu, menu);
-//        return true;
-//    }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
         inflater.inflate(R.menu.action_bar, menu);
-//        MenuItem someMenuItem = menu.findItem(R.id.action_favorite);
-//        someMenuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem m) {
-//                return true;
-//            }
-//        });
-
-//        mRefreshMenuItem = menu.findItem(R.id.refresh);
-//        mRefreshMenuItem.setVisible(false);
-//        super.onCreateOptionsMenu(menu, inflater);
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

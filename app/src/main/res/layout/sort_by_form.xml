@@ -3,31 +3,43 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:gravity="center_horizontal"
     >
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "By name"
+            android:text = "By Name"
+            android:textSize="10pt"
+            android:fontFamily="@font/roboto_light"
             />
         <RadioButton
             android:id="@+id/sort_by_form_name"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "By date"
+            android:text = "By Date"
+            android:textSize="10pt"
+            android:fontFamily="@font/roboto_light"
             />
         <RadioButton
             android:id="@+id/sort_by_form_date"

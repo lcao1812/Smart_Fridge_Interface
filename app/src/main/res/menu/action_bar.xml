@@ -7,12 +7,16 @@
             android:id="@+id/inventory_search_button"
             android:icon="@drawable/ic_baseline_search_24"
             android:title="Search"
+            android:textSize="@dimen/text_size_small"
+            android:fontFamily="@font/lato"
             app:showAsAction="ifRoom" />
 
         <!-- Settings, should always be in the overflow -->
         <item android:id="@+id/sort_setting"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Sort by" />
+            android:textSize="@dimen/text_size_small"
+            android:fontFamily="@font/lato"
+            android:title="Sort By" />
 
 
 </menu>

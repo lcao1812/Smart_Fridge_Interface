@@ -6,7 +6,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Would you like to delete this item"
+        android:text="Would you like to delete this item?"
+        android:fontFamily="@font/roboto_light"
+        android:gravity="center"
+        android:textSize="@dimen/text_size_small"
         />
 
 </LinearLayout>
