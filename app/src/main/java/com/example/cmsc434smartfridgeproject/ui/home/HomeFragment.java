@@ -14,6 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.cmsc434smartfridgeproject.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
@@ -30,6 +33,15 @@ public class HomeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
+        Date today = new Date();
+        final TextView temp = root.findViewById(R.id.home_temp);
+        final TextView time = root.findViewById(R.id.home_time);
+        final TextView date = root.findViewById(R.id.home_date);
+        temp.setText("32° F");
+        time.setText(timeFormat.format(today));
+        date.setText(formatter.format(today));
         return root;
     }
 }
