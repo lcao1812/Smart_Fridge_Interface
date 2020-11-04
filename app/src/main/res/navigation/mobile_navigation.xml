@@ -18,6 +18,10 @@
         tools:layout="@layout/fragment_inventory" />
 
     <fragment
+        android:id="@+id/navigation_recipes"
+        android:name="com.example.cmsc434smartfridgeproject.ui.recipes.RecipesFragment"
+        android:label="@string/title_recipes" />
+    <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.example.cmsc434smartfridgeproject.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
