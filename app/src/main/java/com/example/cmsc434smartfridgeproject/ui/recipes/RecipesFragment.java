@@ -43,8 +43,6 @@ public class RecipesFragment extends Fragment {
         recipeList.add("Week of Sept 2nd");
         recipeList.add("This is an example scenario -- Number 1");
 
-        System.out.println(recipeList.size());
-
         rList = (ListView) book.findViewById(R.id.recipeList);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, recipeList);
         rList.setAdapter(adapter);
