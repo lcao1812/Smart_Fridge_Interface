@@ -89,9 +89,9 @@
 
     <ListView
         android:id="@+id/recipeList"
-        android:layout_width="99dp"
-        android:layout_height="583dp"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="146dp" />
+        android:layout_width="297dp"
+        android:layout_height="608dp"
+        tools:layout_editor_absoluteX="50dp"
+        tools:layout_editor_absoluteY="123dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
