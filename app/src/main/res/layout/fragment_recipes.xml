@@ -2,9 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/allRecipes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A8FFFFFF">
+    android:background="#A8FFFFFF"
+    tools:context=".ui.recipes.RecipesFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/new_fab"
@@ -85,7 +87,7 @@
         tools:layout_editor_absoluteX="101dp"
         tools:layout_editor_absoluteY="173dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ListView
         android:id="@+id/recipeList"
         android:layout_width="99dp"
         android:layout_height="583dp"

@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.cmsc434smartfridgeproject.R;
-// import com.example.cmsc434smartfridgeproject.ui.recipes.RecipesFragment;
+import com.example.cmsc434smartfridgeproject.ui.recipes.RecipesFragment;
 import com.example.cmsc434smartfridgeproject.ui.recipes.RecipesViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -38,14 +38,13 @@ public class RecipesFragment extends Fragment {
                 ViewModelProviders.of(this).get(RecipesViewModel.class);
         View book = inflater.inflate(R.layout.fragment_recipes, container, false);
 
-        recipeList.add("Nicky's birthday");
+        recipeList.add("Baked Salmon");
         recipeList.add("Week of Sept 2nd");
         recipeList.add("This is an example scenario -- Number 1");
 
         rList = (ListView) book.findViewById(R.id.itemList);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, recipeList);
         rList.setAdapter(adapter);
-
 
         // action for the fab button
         add_fab = (FloatingActionButton) book.findViewById(R.id.fab_add);
@@ -77,8 +76,6 @@ public class RecipesFragment extends Fragment {
 
         return book;
     }
-
-
 
     private void addRecipe() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
