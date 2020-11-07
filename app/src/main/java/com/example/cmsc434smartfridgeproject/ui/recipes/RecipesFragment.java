@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.cmsc434smartfridgeproject.CardListAdapter;
 import com.example.cmsc434smartfridgeproject.R;
 import com.example.cmsc434smartfridgeproject.ui.recipes.RecipesFragment;
 import com.example.cmsc434smartfridgeproject.ui.recipes.RecipesItemFragment;
@@ -27,25 +30,28 @@ import androidx.lifecycle.ViewModelProviders;
 
 public class RecipesFragment extends Fragment {
     private FloatingActionButton add_fab;
+    private static final String TAG = "RecipesFragment";
     private RecipesViewModel recipesViewModel;
-    private ArrayList<String> recipeList = new ArrayList<>();
-    private ListView rList;
-    private ArrayAdapter<String> adapter;
 
+    private ListView mRecipesListView;
+
+    private ArrayAdapter<String> adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         recipesViewModel =
                 ViewModelProviders.of(this).get(RecipesViewModel.class);
-        View book = inflater.inflate(R.layout.fragment_recipes, container, false);
+        View book = inflater.inflate(R.layout.fragment_recipes_list, container, false);
 
-        recipeList.add("Baked Salmon");
-        recipeList.add("Week of Sept 2nd");
-        recipeList.add("This is an example scenario -- Number 1");
+        mRecipesListView = (ListView) book.findViewById(R.id.recipesListView);
+        ArrayList<Recipe> recipeList = new ArrayList<>();
+        recipeList.add(new Recipe("@drawable/bakedsalmon", "Baked Salmon"));
+        recipeList.add(new Recipe("@drawable/shakshuka", "Shakshuka"));
+        recipeList.add(new Recipe("@drawable/vietporkchops", "Vietnamese Pork Chops"));
+        recipeList.add(new Recipe("@drawable/greeksalad", "Greek Salad"));
 
-        rList = (ListView) book.findViewById(R.id.recipeList);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, recipeList);
-        rList.setAdapter(adapter);
+        RecipeListAdapter adapter = new RecipeListAdapter(this, R.layout.fragment_recipes);
+        mRecipesListView.setAdapter(adapter);
 
         // action for the fab button
 //        add_fab = (FloatingActionButton) book.findViewById(R.id.fab_add);
@@ -58,22 +64,22 @@ public class RecipesFragment extends Fragment {
 //            }
 //        });
 
-        rList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getContext(), "recipe clicked", Toast.LENGTH_SHORT).show();
-
-                String selected = recipeList.get(position);
-                RecipesItemFragment recipesItemFragment = new RecipesItemFragment();
-
-                Bundle bundle = new Bundle();
-
-                FragmentManager manager = getFragmentManager();
-//              manager.beginTransaction().replace(R.id.nav_host_fragment, recipesItemFragment, recipesItemFragment.getTag()).commit();
-            }
-        });
+//        rList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Toast.makeText(getContext(), "recipe clicked", Toast.LENGTH_SHORT).show();
+//
+//                String selected = recipeList.get(position);
+//                RecipesItemFragment recipesItemFragment = new RecipesItemFragment();
+//
+//                Bundle bundle = new Bundle();
+//
+//                FragmentManager manager = getFragmentManager();
+////              manager.beginTransaction().replace(R.id.nav_host_fragment, recipesItemFragment, recipesItemFragment.getTag()).commit();
+//            }
+//        });
 
         return book;
     }
