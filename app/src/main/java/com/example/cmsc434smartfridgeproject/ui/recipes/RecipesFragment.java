@@ -37,6 +37,8 @@ public class RecipesFragment extends Fragment {
 
     private ArrayAdapter<String> adapter;
 
+    // need to add recipeDetails (long string), tags, hasAllergens, isVegetarian via a horizontal scroll view
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         recipesViewModel =
@@ -45,24 +47,13 @@ public class RecipesFragment extends Fragment {
 
         mRecipesListView = (ListView) book.findViewById(R.id.recipesListView);
         ArrayList<Recipe> recipeList = new ArrayList<>();
-        recipeList.add(new Recipe("@drawable/bakedsalmon", "Baked Salmon"));
-        recipeList.add(new Recipe("@drawable/shakshuka", "Shakshuka"));
+        recipeList.add(new Recipe("drawable://" + R.drawable.bakedsalmon, "Baked Salmon"));
+        recipeList.add(new Recipe("drawable://" + R.drawable.bakedsalmon, "Shakshuka"));
         recipeList.add(new Recipe("@drawable/vietporkchops", "Vietnamese Pork Chops"));
         recipeList.add(new Recipe("@drawable/greeksalad", "Greek Salad"));
 
-        RecipeListAdapter adapter = new RecipeListAdapter(this, R.layout.fragment_recipes);
+        RecipeListAdapter adapter = new RecipeListAdapter(this.getContext(), R.layout.fragment_recipes, recipeList);
         mRecipesListView.setAdapter(adapter);
-
-        // action for the fab button
-//        add_fab = (FloatingActionButton) book.findViewById(R.id.fab_add);
-//        add_fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Function to add Item here
-//                addRecipe();
-//                // ****************************
-//            }
-//        });
 
 //        rList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 //
@@ -83,35 +74,4 @@ public class RecipesFragment extends Fragment {
 
         return book;
     }
-
-//    private void addRecipe() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle("Add New Recipe");
-//
-//        View v = LayoutInflater.from(getActivity()).inflate(R.layout.item_dialog, null, false);
-//
-//        builder.setView(v);
-//        final EditText etItem = v.findViewById(R.id.etItem);
-//        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                if (!etItem.getText().toString().isEmpty()) {
-//                    recipeList.add(etItem.getText().toString().trim());
-//                    adapter.notifyDataSetChanged();
-//                    Toast.makeText(getContext() , "recipe added", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    etItem.setError("add item here !");
-//                }
-//            }
-//        });
-//
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        builder.show();
-//    }
 }

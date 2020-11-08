@@ -9,54 +9,47 @@
     tools:context=".ui.recipes.RecipesFragment"
     android:padding="16dp">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/new_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:tint="#0000"
-        app:backgroundTint="#6200EE"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95"
-        app:maxImageSize="30sp"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <androidx.cardview.widget.CardView
-        android:layout_width="317dp"
-        android:layout_height="197dp"
-        android:background="@drawable/border"
+        android:id="@+id/cardView"
+        android:layout_width="320dp"
+        android:layout_height="230dp"
         android:padding="10dp"
-        app:cardCornerRadius="5dp"
-        app:cardElevation="15dp"
+        app:cardElevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:layout_width="319dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_width="320dp"
+            android:layout_height="230dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical"
+            android:background="@drawable/border">
 
             <ImageView
                 android:id="@+id/recipeImage"
                 android:layout_width="match_parent"
-                android:layout_height="168dp"
-                />
+                android:layout_height="144dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginTop="2dp"/>
 
             <TextView
                 android:id="@+id/recipeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_light"
+                android:gravity="center"
                 android:paddingLeft="10dp"
-                android:text="Card Title" />
+                android:paddingRight="10dp"
+                android:text="Card Title"
+                android:textColor="#000000"
+                android:textSize="14pt"
+                android:textStyle="bold" />
 
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 
     <TextView
