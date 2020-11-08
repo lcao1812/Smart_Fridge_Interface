@@ -25,7 +25,7 @@ public class RecipesItemFragment extends Fragment {
     private ArrayList<String> toPurchase = new ArrayList<>();
     private ArrayList<String> purchased = new ArrayList<>();
     private ListView ingredientsList;
-    private ArrayAdapter<String> cartAdapter;
+    private ArrayAdapter<String> recipeAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class RecipesItemFragment extends Fragment {
         }
 
         ingredientsList = (ListView) mRecipeItemView.findViewById(R.id.recipeIngredients);
-        cartAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, bundle.getStringArray("recipe_ingredients"));
-        ingredientsList.setAdapter(cartAdapter);
+        recipeAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_multiple_choice, bundle.getStringArray("recipe_ingredients"));
+        ingredientsList.setAdapter(recipeAdapter);
 
         ingredientsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
