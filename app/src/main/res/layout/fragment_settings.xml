@@ -6,166 +6,153 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <TextView
             android:layout_width="350dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="12.5pt"
             android:textStyle="bold"
+            android:gravity="center"
             android:text="Set Language" />
+
         <Spinner
             android:id="@+id/setlanguagebutton"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
+            android:gravity="center"
             android:text="Language" />
 
         <TextView
             android:layout_width="350dp"
-            android:layout_height="30dp"
+            android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="12.5pt"
             android:textStyle="bold"
+            android:gravity="center"
             android:text="Celcius/Fahrenheit" />
 
         <ToggleButton
             android:id="@+id/setCorFbutton"
             android:layout_width="350dp"
             android:layout_height="50dp"
-            android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
             android:text="setCorFbutton"
+            android:gravity="center"
             android:textOff="Celcius (Click to Change)"
             android:textOn="Fahrenheit (Click to Change)" />
 
         <TextView
             android:layout_width="350dp"
-            android:layout_height="30dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
+            android:fontFamily="@font/roboto_light"
+            android:textSize="12.5pt"
             android:textStyle="bold"
+            android:gravity="center"
             android:text="Set Dietary Restrictions" />
 
-        <CheckBox
-            android:id="@+id/checkBoxTreeNuts"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Tree Nuts"
-            android:textSize="18dp"/>
+            android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/checkBoxGluten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Gluten"
-            android:textSize="18dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxTreeNuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Tree Nuts"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
 
-        <CheckBox
-            android:id="@+id/checkBoxDairy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Dairy (Lactose) "
-            android:textSize="18dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxGluten"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Gluten"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
 
-        <CheckBox
-            android:id="@+id/checkBoxPeanuts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Peanuts"
-            android:textSize="18dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxDairy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Dairy (Lactose) "
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
 
-        <CheckBox
-            android:id="@+id/checkBoxShellfish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Shellfish"
-            android:textSize="18dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxPeanuts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Peanuts"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
 
-        <CheckBox
-            android:id="@+id/checkBoxSoy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Soy"
-            android:textSize="18dp"/>
+            <CheckBox
+                android:id="@+id/checkBoxShellfish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Shellfish"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
+
+            <CheckBox
+                android:id="@+id/checkBoxSoy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Soy"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="10pt"/>
+        </LinearLayout>
+
 
         <TextView
             android:layout_width="350dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:text="Set Time and Date"
-            android:textSize="23dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Set Time"
+            android:gravity="center"
+            android:textSize="12.5pt"
             android:textStyle="bold"
             />
 
-        <EditText
-            android:id="@+id/editTextTime2"
+        <TimePicker
+            android:id="@+id/timePicker1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:fontFamily="@font/roboto_light"
-            android:ems="10"
-            android:hint="Set time"
-            android:inputType="time"
-           />
+            android:timePickerMode="spinner"
+            android:fontFamily="@font/roboto_light"/>
 
-        <EditText
-            android:id="@+id/editTextDate3"
+        <TextView
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/roboto_light"
+            android:text="Set Date"
+            android:gravity="center"
+            android:textSize="12.5pt"
+            android:textStyle="bold"
+            />
+
+        <DatePicker
+            android:id="@+id/datePicker1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="100dp"
-            android:fontFamily="@font/roboto_light"
-            android:ems="10"
-            android:hint="Set date"
-            android:inputType="date"
-            />
+            android:datePickerMode="spinner"
+            android:calendarViewShown="false"/>
 
 
     </LinearLayout>
