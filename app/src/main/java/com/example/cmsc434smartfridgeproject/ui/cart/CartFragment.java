@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +58,16 @@ public class CartFragment extends Fragment{
         itemList.add("This is an example scenario -- Number 4");
 
         cartList = (ListView) cart.findViewById(R.id.itemList);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList);
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                return view;
+            }
+        };
         cartList.setAdapter(adapter);
 
 
@@ -88,7 +98,7 @@ public class CartFragment extends Fragment{
                 cartItemFragment.setArguments(bundle);
 
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment, cartItemFragment, cartItemFragment.getTag()).commit();
+                manager.beginTransaction().replace(R.id.nav_host_fragment, cartItemFragment, cartItemFragment.getTag()).addToBackStack(null).commit();
             }
         });
 
@@ -96,8 +106,7 @@ public class CartFragment extends Fragment{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                itemList.remove(position);
-                adapter.notifyDataSetChanged();
+                deleteItem(position, itemList);
                 Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
 
                 return true;
@@ -140,5 +149,24 @@ public class CartFragment extends Fragment{
         builder.show();
     }
 
+    private void deleteItem(final int position, final ArrayList<String> list) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.delete_item, null, false);
+        builder.setView(v);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                list.remove(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+    }
 
 }
