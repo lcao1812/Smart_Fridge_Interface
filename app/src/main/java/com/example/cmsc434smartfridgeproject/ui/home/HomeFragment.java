@@ -1,6 +1,7 @@
 package com.example.cmsc434smartfridgeproject.ui.home;
 
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -46,6 +50,13 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(false);
+
+        actionBar.setDisplayShowHomeEnabled(false);
+        setHasOptionsMenu(false);
+
         // Display Current Information
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
@@ -74,7 +85,9 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
                 return view;
             }
         };
@@ -106,8 +119,10 @@ public class HomeFragment extends Fragment {
                 CheckedTextView cv = ((CheckedTextView) view);
                 cv.setChecked(true);
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                text.setTypeface(tf);
                 return view;
             }
         };
@@ -145,7 +160,9 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
                 return view;
             }
         };
