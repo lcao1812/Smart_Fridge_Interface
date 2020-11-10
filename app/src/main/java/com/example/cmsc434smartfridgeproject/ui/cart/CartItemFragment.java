@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.sax.TextElementListener;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -61,6 +64,13 @@ public class CartItemFragment extends Fragment {
         // Inflate the layout for this fragment
         View itemCart = inflater.inflate(R.layout.fragment_cart_item, container, false);
         TextView tvDetail = (TextView) itemCart.findViewById(R.id.tvDetail);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
 
         Bundle bundle = getArguments();
 
@@ -190,6 +200,19 @@ public class CartItemFragment extends Fragment {
         return itemCart;
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                CartFragment cartFragment = new CartFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.nav_host_fragment, cartFragment, cartFragment.getTag()).addToBackStack(null).commit();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
 
     public View getViewByPosition(int position, ListView listView) {
         final int firstListItemPosition = listView.getFirstVisiblePosition();
