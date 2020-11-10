@@ -3,6 +3,7 @@ package com.example.cmsc434smartfridgeproject.ui.cart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -171,8 +172,11 @@ public class CartItemFragment extends Fragment {
         cartList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-                deleteItem(position, toPurchase);
+                if (toPurchase.get(position) != "Add item to your cart") {
+                    deleteItem(position, toPurchase);
+                } else {
+                    addCartItem();
+                }
 
                 return true;
             }
