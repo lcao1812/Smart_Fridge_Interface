@@ -1,6 +1,7 @@
 package com.example.cmsc434smartfridgeproject.ui.home;
 
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -83,7 +85,9 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
                 return view;
             }
         };
@@ -115,8 +119,10 @@ public class HomeFragment extends Fragment {
                 CheckedTextView cv = ((CheckedTextView) view);
                 cv.setChecked(true);
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                text.setTypeface(tf);
                 return view;
             }
         };
@@ -154,7 +160,9 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
                 return view;
             }
         };

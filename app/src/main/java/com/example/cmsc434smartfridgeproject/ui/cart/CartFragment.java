@@ -3,6 +3,8 @@ package com.example.cmsc434smartfridgeproject.ui.cart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -18,8 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -69,12 +73,15 @@ public class CartFragment extends Fragment{
 
         cartList = (ListView) cart.findViewById(R.id.itemList);
         adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList) {
+
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
                 return view;
             }
         };
