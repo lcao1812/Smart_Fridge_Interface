@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 return view;
             }
         };
@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment {
                 if (!purchasedHome.contains(item)) {
                     purchasedHome.add(0, item);
                     toPurchaseHome.remove(item);
+                    Toast.makeText(getContext(), item + " purchased.", Toast.LENGTH_SHORT).show();
                 }
 
                 itemAdapterHome.notifyDataSetChanged();
@@ -105,7 +106,7 @@ public class HomeFragment extends Fragment {
                 CheckedTextView cv = ((CheckedTextView) view);
                 cv.setChecked(true);
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 return view;
             }
@@ -118,6 +119,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String item = purchasedHome.get(position);
+                Toast.makeText(getContext(), item + " removed from purchased.", Toast.LENGTH_SHORT).show();
                 toPurchaseHome.add(0, item);
                 purchasedHome.remove(item);
 
@@ -143,7 +145,7 @@ public class HomeFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 return view;
             }
         };
@@ -154,9 +156,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), "item clicked", Toast.LENGTH_SHORT).show();
-
                 String selected = cartsHome.get(position);
+                Toast.makeText(getContext(), "Cart for " + selected + " selected.", Toast.LENGTH_SHORT).show();
                 CartItemFragment cartItemFragment = new CartItemFragment();
 
                 Bundle bundle = new Bundle();

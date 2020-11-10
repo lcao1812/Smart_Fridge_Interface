@@ -99,7 +99,7 @@ public class CartItemFragment extends Fragment {
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 return view;
             }
         };
@@ -114,7 +114,7 @@ public class CartItemFragment extends Fragment {
                 CheckedTextView cv = ((CheckedTextView) view);
                 cv.setChecked(true);
                 TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                text.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 text.setPaintFlags(text.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 return view;
             }
@@ -140,10 +140,15 @@ public class CartItemFragment extends Fragment {
                 if (!purchased.contains(item) && item != "Add item to your cart") {
                     purchased.add(0, item);
                     toPurchase.remove(item);
+                    Toast.makeText(getContext(), item + " purchased.", Toast.LENGTH_SHORT).show();
                 }
 
                 if (item == "Add item to your cart") {
                     addCartItem();
+                }
+
+                if (toPurchase.isEmpty()) {
+                    toPurchase.add("Add item to your cart");
                 }
 
 
@@ -158,7 +163,6 @@ public class CartItemFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 deleteItem(position, toPurchase);
-                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
 
                 return true;
             }
@@ -171,6 +175,11 @@ public class CartItemFragment extends Fragment {
                 String item = purchased.get(position);
                 toPurchase.add(0, item);
                 purchased.remove(item);
+                Toast.makeText(getContext(), item + " removed from purchased", Toast.LENGTH_SHORT).show();
+
+                if (toPurchase.contains("Add item to your cart")) {
+                    toPurchase.remove("Add item to your cart");
+                }
 
                 cartAdapter.notifyDataSetChanged();
                 cartAdapterPurchased.notifyDataSetChanged();
@@ -238,6 +247,7 @@ public class CartItemFragment extends Fragment {
                 list.remove(position);
                 cartAdapter.notifyDataSetChanged();
                 cartAdapterPurchased.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
