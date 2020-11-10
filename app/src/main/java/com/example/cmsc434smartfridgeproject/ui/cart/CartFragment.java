@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -64,7 +66,7 @@ public class CartFragment extends Fragment{
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 TextView tv = (TextView) view.findViewById(android.R.id.text1);
-                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
                 return view;
             }
         };
@@ -87,9 +89,8 @@ public class CartFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), "item clicked", Toast.LENGTH_SHORT).show();
-
                 String selected = itemList.get(position);
+                Toast.makeText(getContext(), "Cart for " + selected + " selected.", Toast.LENGTH_SHORT).show();
                 CartItemFragment cartItemFragment = new CartItemFragment();
 
                 Bundle bundle = new Bundle();
@@ -107,7 +108,6 @@ public class CartFragment extends Fragment{
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 deleteItem(position, itemList);
-                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
 
                 return true;
             }
@@ -158,6 +158,7 @@ public class CartFragment extends Fragment{
             public void onClick(DialogInterface dialog, int which) {
                 list.remove(position);
                 adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -167,6 +168,7 @@ public class CartFragment extends Fragment{
             }
         });
         builder.show();
+
     }
 
 }

@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
         android:fontFamily="@font/lato"
-        android:textSize="@dimen/text_size_small"
+        android:textSize="@dimen/text_size_medium"
         />
 
     <TextView
