@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -51,6 +52,13 @@ public class CartFragment extends Fragment{
         cartViewModel =
                 ViewModelProviders.of(this).get(CartViewModel.class);
         View cart = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
 
         itemList.add("Nicky's birthday");
         itemList.add("Week of Sept 2nd");
@@ -116,7 +124,17 @@ public class CartFragment extends Fragment{
         return cart;
     }
 
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
 
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,6 +25,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProviders;
@@ -40,6 +43,13 @@ public class RecipesFragment extends Fragment {
         recipesViewModel =
                 ViewModelProviders.of(this).get(RecipesViewModel.class);
         View book = inflater.inflate(R.layout.fragment_recipes_list, container, false);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
 
         mRecipesListView = (ListView) book.findViewById(R.id.recipesListView);
 
@@ -85,10 +95,22 @@ public class RecipesFragment extends Fragment {
                 recipesItemFragment.setArguments(bundle);
 
                 FragmentManager manager = getFragmentManager();
-              manager.beginTransaction().replace(R.id.nav_host_fragment, recipesItemFragment, recipesItemFragment.getTag()).commit();
+              manager.beginTransaction().replace(R.id.nav_host_fragment, recipesItemFragment, recipesItemFragment.getTag()).addToBackStack(null).commit();
             }
         });
 
         return book;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
