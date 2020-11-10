@@ -87,7 +87,7 @@ public class InventoryFragment extends Fragment {
         imgs.add(R.drawable.miso);
         imgs.add(R.drawable.onion);
         for(int i = 0; i < 16; i++){
-            imgs.add(R.drawable.onion);
+            imgs.add(R.drawable.ic_launcher_foreground);
         }
 
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
@@ -162,7 +162,10 @@ public class InventoryFragment extends Fragment {
                         for(int i =0; i < list.size(); i++){
                             newImgList.add(m.get(list.get(i)));
                         }
-                        imgs= newImgList;
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
 
                     }
                     if(date.isChecked()){
@@ -178,7 +181,10 @@ public class InventoryFragment extends Fragment {
                         for(int i =0; i < list.size(); i++){
                             newImgList.add(m.get(list.get(i)));
                         }
-                        imgs= newImgList;
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
                     }
                     if(owner.isChecked()){
                         Collections.sort(
@@ -193,7 +199,10 @@ public class InventoryFragment extends Fragment {
                         for(int i =0; i < list.size(); i++){
                             newImgList.add(m.get(list.get(i)));
                         }
-                        imgs= newImgList;
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
                     }
                     arrayAdapter.notifyDataSetChanged();
                 }
