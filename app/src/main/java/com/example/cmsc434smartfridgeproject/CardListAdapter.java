@@ -97,7 +97,7 @@ public class CardListAdapter extends BaseAdapter{
         holder.foodName.setText(result.get(position).getName());
 
         holder.foodDate.setText("Bought on " + formatter.format(result.get(position).getBuyDate()));
-        holder.foodAmount.setText("Amount: "+ String.valueOf(result.get(position).getAmount()));
+        holder.foodAmount.setText("X "+ String.valueOf(result.get(position).getAmount()));
         holder.foodOwner.setText("Owner: "+result.get(position).getOwner());
         StringBuilder foodAllergies = new StringBuilder();
         int i = 0;

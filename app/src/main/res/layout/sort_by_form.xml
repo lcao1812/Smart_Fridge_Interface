@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text = "By Name"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"
             />
         <RadioButton
@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text = "By Date"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"
             android:id="@+id/sort_by_form_date"
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text = "By Owner"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"
             android:id="@+id/sort_by_form_owner"
             android:layout_width="wrap_content"

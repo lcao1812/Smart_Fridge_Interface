@@ -13,7 +13,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food Name"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"
             android:layout_gravity="center"
             />
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                android:textSize="10pt"
+                android:textSize="@dimen/text_size_small"
                 android:fontFamily="@font/roboto_light"
                 />
         <EditText
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Buy Date"
-                    android:textSize="10pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"/>
                 <EditText
                     android:id="@+id/addFoodDate"
@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Today"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"/>
                 <ImageButton
                     android:id="@+id/addFoodDateTodayButton"
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Food Allergens"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"
             />
         <LinearLayout
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Dairy"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
             </LinearLayout>
@@ -159,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gluten"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
             </LinearLayout>
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Peanut"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
             </LinearLayout>
@@ -204,7 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tree nut"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
             </LinearLayout>
@@ -222,7 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shellfish"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
             </LinearLayout>
@@ -240,7 +240,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Soy"
-                    android:textSize="8pt"
+                    android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"
                     />
         </LinearLayout>
@@ -257,7 +257,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Food Owner"
-            android:textSize="10pt"
+            android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"/>
         <EditText
             android:id="@+id/addFoodOwner"

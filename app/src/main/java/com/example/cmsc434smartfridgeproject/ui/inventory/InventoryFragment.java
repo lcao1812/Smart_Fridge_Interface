@@ -86,7 +86,9 @@ public class InventoryFragment extends Fragment {
 
         imgs.add(R.drawable.miso);
         imgs.add(R.drawable.onion);
-
+        for(int i = 0; i < 16; i++){
+            imgs.add(R.drawable.onion);
+        }
 
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
         fridgelistView = root.findViewById(R.id._fridge_inventory_list);
