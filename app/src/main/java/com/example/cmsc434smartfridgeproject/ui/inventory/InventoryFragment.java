@@ -318,9 +318,9 @@ public class InventoryFragment extends Fragment {
 
         builder.show();
     }
-    private void addCartItemError() {
+    private void addCartItemError(String area) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Item could not be added.");
+        builder.setTitle("Item could not be added because "+ area +" is missing.");
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -398,7 +398,18 @@ public class InventoryFragment extends Fragment {
                     arrayAdapter.notifyDataSetChanged();
 
                 } else {
-                    addCartItemError();
+                    if(foodName.getText().toString().isEmpty()){
+                        addCartItemError("food name");
+                    }else if (foodAmount.getText().toString().isEmpty()){
+                        addCartItemError("food amount");
+                    }
+                    else if (foodDate.getText().toString().isEmpty()){
+                        addCartItemError("buy date");
+                    }
+                    else if (foodOwner.getText().toString().isEmpty()){
+                        addCartItemError("food owner");
+                    }
+
                 }
             }
         });
