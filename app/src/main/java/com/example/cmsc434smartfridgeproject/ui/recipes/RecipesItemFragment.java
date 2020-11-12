@@ -38,7 +38,7 @@ public class RecipesItemFragment extends Fragment {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            recipeInstructions.setText("Instructions:\n" + bundle.getString("recipe_instructions"));
+            recipeInstructions.setText(bundle.getString("recipe_instructions"));
             recipeTitle.setText(bundle.getString("recipe_title"));
         }
 
