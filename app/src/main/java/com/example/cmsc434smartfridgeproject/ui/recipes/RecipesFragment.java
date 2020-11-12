@@ -82,6 +82,7 @@ public class RecipesFragment extends Fragment {
                 bundle.putString("recipe_title", selected.getTitle());
                 bundle.putStringArray("recipe_ingredients", selected.getIngredients());
                 bundle.putString("recipe_instructions", selected.getInstructions());
+                bundle.putInt("book_size", recipeList.size());
                 recipesItemFragment.setArguments(bundle);
 
                 FragmentManager manager = getFragmentManager();
