@@ -83,12 +83,25 @@ public class InventoryFragment extends Fragment {
         imgs.add(R.drawable.cauliflower);
         imgs.add(R.drawable.porkshoulder);
         imgs.add(R.drawable.salmon);
-
         imgs.add(R.drawable.miso);
         imgs.add(R.drawable.onion);
-        for(int i = 0; i < 16; i++){
-            imgs.add(R.drawable.ic_launcher_foreground);
-        }
+        imgs.add(R.drawable.bellpepper);
+        imgs.add(R.drawable.butter);
+        imgs.add(R.drawable.chedder);
+        imgs.add(R.drawable.lime);
+        imgs.add(R.drawable.shallot);
+        imgs.add(R.drawable.parsley);
+        imgs.add(R.drawable.caper);
+        imgs.add(R.drawable.dill);
+        imgs.add(R.drawable.oregano);
+        imgs.add(R.drawable.garlic);
+        imgs.add(R.drawable.cucumber);
+        imgs.add(R.drawable.feta);
+        imgs.add(R.drawable.lemon);
+        imgs.add(R.drawable.plumtomatoes);
+        imgs.add(R.drawable.pita);
+        imgs.add(R.drawable.olive);
+
 
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
         fridgelistView = root.findViewById(R.id._fridge_inventory_list);
@@ -98,8 +111,7 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addCartItem();
-                Snackbar.make(v, "Item Added To The Cart", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
         return root;
@@ -306,6 +318,19 @@ public class InventoryFragment extends Fragment {
 
         builder.show();
     }
+    private void addCartItemError() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Item could not be added.");
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        builder.show();
+    }
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add New Item");
@@ -373,7 +398,7 @@ public class InventoryFragment extends Fragment {
                     arrayAdapter.notifyDataSetChanged();
 
                 } else {
-                    foodName.setError("add item here !");
+                    addCartItemError();
                 }
             }
         });
