@@ -3,6 +3,7 @@ package com.example.cmsc434smartfridgeproject.ui.recipes;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,13 +13,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.cmsc434smartfridgeproject.R;
+import com.example.cmsc434smartfridgeproject.ui.cart.CartFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 public class RecipesItemFragment extends Fragment {
 
@@ -34,6 +39,13 @@ public class RecipesItemFragment extends Fragment {
         View mRecipeItemView = inflater.inflate(R.layout.fragment_recipes_item, container, false);
         TextView recipeInstructions = (TextView) mRecipeItemView.findViewById(R.id.recipeInstructions);
         TextView recipeTitle = (TextView) mRecipeItemView.findViewById(R.id.recipeTitle);
+
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
 
         Bundle bundle = getArguments();
 
@@ -66,5 +78,19 @@ public class RecipesItemFragment extends Fragment {
         });
 
         return mRecipeItemView;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                RecipesFragment recipesFragment = new RecipesFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.nav_host_fragment, recipesFragment, recipesFragment.getTag()).addToBackStack(null).commit();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
