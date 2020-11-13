@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,7 +20,10 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
-import androidx.annotation.LayoutRes;
+// The following code was made while following a tutorial from CodingwithMitch
+// This allows for the recipe cards to be displayed in a recycled listview
+// and uses the Android Studio's global Image Loader (on Github) to load
+// the images for each card.
 
 public class RecipeListAdapter extends ArrayAdapter<Recipe> {
 
@@ -42,7 +43,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
     }
 
     /**
-     * Default constructor for the PersonListAdapter
+     * Default constructor
      * @param context
      * @param resource
      * @param objects
@@ -65,31 +66,28 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
         String imgUrl = getItem(position).getImageURL();
 
         try{
-            //create the view result for showing the animation
-            final View result;
 
             //ViewHolder object
             ViewHolder holder;
 
             convertView = inflater.inflate(mResource, parent, false);
+
+            // creates a view holder and initializes the variables per card
             holder= new ViewHolder();
             holder.title = (TextView) convertView.findViewById(R.id.recipeTitle);
             holder.image = (ImageView) convertView.findViewById(R.id.recipeImage);
-
-                result = convertView;
-
                 convertView.setTag(holder);
-//
-//            Animation animation = AnimationUtils.loadAnimation(mContext,
-//                    (position > lastPosition) ? R.anim.load_down_anim : R.anim.load_up_anim);
-//            result.startAnimation(animation);
+
+                // keeps track of the recipe's position
             lastPosition = position;
 
+            //sets the title of the recipe
             holder.title.setText(title);
 
-            //create the imageloader object
+            //creates the image loader to load each image
             ImageLoader imageLoader = ImageLoader.getInstance();
 
+            // if there is no image available, fills it in with a blank(transparent) image with a border around it
             int defaultImage = mContext.getResources().getIdentifier("@drawable/border",null,mContext.getPackageName());
 
             //create display options
@@ -112,6 +110,7 @@ public class RecipeListAdapter extends ArrayAdapter<Recipe> {
 
     /**
      * Required for setting up the Universal Image loader Library
+     * This is part of the Image loader Library code
      */
     private void setupImageLoader(){
         // UNIVERSAL IMAGE LOADER SETUP
