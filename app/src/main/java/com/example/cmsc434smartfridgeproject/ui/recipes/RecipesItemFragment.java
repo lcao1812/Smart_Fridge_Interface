@@ -13,9 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.cmsc434smartfridgeproject.R;
-import com.example.cmsc434smartfridgeproject.ui.cart.CartFragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
