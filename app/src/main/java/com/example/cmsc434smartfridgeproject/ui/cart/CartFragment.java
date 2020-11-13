@@ -3,8 +3,12 @@ package com.example.cmsc434smartfridgeproject.ui.cart;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +20,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -49,6 +57,13 @@ public class CartFragment extends Fragment{
                 ViewModelProviders.of(this).get(CartViewModel.class);
         View cart = inflater.inflate(R.layout.fragment_cart, container, false);
 
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        actionBar.setDisplayShowHomeEnabled(true);
+        setHasOptionsMenu(true);
+
         itemList.add("Nicky's birthday");
         itemList.add("Week of Sept 2nd");
         itemList.add("This is an example scenario -- Number 1");
@@ -57,7 +72,19 @@ public class CartFragment extends Fragment{
         itemList.add("This is an example scenario -- Number 4");
 
         cartList = (ListView) cart.findViewById(R.id.itemList);
-        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList);
+        adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, itemList) {
+
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP,23);
+                Typeface tf = ResourcesCompat.getFont(getContext(), R.font.roboto_light);
+                tv.setTypeface(tf);
+                return view;
+            }
+        };
         cartList.setAdapter(adapter);
 
 
@@ -77,9 +104,8 @@ public class CartFragment extends Fragment{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), "item clicked", Toast.LENGTH_SHORT).show();
-
                 String selected = itemList.get(position);
+                Toast.makeText(getContext(), "Cart for " + selected + " selected.", Toast.LENGTH_SHORT).show();
                 CartItemFragment cartItemFragment = new CartItemFragment();
 
                 Bundle bundle = new Bundle();
@@ -88,7 +114,7 @@ public class CartFragment extends Fragment{
                 cartItemFragment.setArguments(bundle);
 
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.nav_host_fragment, cartItemFragment, cartItemFragment.getTag()).commit();
+                manager.beginTransaction().replace(R.id.nav_host_fragment, cartItemFragment, cartItemFragment.getTag()).addToBackStack(null).commit();
             }
         });
 
@@ -96,9 +122,7 @@ public class CartFragment extends Fragment{
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                itemList.remove(position);
-                adapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
+                deleteItem(position, itemList);
 
                 return true;
             }
@@ -107,7 +131,17 @@ public class CartFragment extends Fragment{
         return cart;
     }
 
-
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle item selection
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
 
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -140,5 +174,26 @@ public class CartFragment extends Fragment{
         builder.show();
     }
 
+    private void deleteItem(final int position, final ArrayList<String> list) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.delete_item, null, false);
+        builder.setView(v);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                list.remove(position);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), "Item Removed", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
+
+    }
 
 }

@@ -33,7 +33,9 @@
         android:id="@+id/navigation_cart"
         android:name="com.example.cmsc434smartfridgeproject.ui.cart.CartFragment"
         android:label="@string/title_cart"
-        tools:layout="@layout/fragment_cart" />
+        android:textSize="20sp"
+        tools:layout="@layout/fragment_cart"
+        />
 
     <fragment
         android:id="@+id/navigation_settings"

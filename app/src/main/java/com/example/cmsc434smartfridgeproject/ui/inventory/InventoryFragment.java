@@ -34,7 +34,6 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -42,7 +41,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class InventoryFragment extends Fragment {
 
@@ -55,13 +53,17 @@ public class InventoryFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);// set drawable icon
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+        actionBar.setDisplayShowHomeEnabled(true);
         setHasOptionsMenu(true);
         inventoryViewModel =
                 ViewModelProviders.of(this).get(InventoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_inventory, container, false);
 
-        ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+
 
 
         list = new ArrayList<FoodItem>();
@@ -73,10 +75,33 @@ public class InventoryFragment extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        imgs.add(R.drawable.orange);
+        imgs.add(R.drawable.eggs);
+        imgs.add(R.drawable.apple);
+        imgs.add(R.drawable.milk);
+        imgs.add(R.drawable.broccoli);
+        imgs.add(R.drawable.cauliflower);
+        imgs.add(R.drawable.porkshoulder);
+        imgs.add(R.drawable.salmon);
+        imgs.add(R.drawable.miso);
+        imgs.add(R.drawable.onion);
+        imgs.add(R.drawable.bellpepper);
+        imgs.add(R.drawable.butter);
+        imgs.add(R.drawable.chedder);
+        imgs.add(R.drawable.lime);
+        imgs.add(R.drawable.shallot);
+        imgs.add(R.drawable.parsley);
+        imgs.add(R.drawable.caper);
+        imgs.add(R.drawable.dill);
+        imgs.add(R.drawable.oregano);
+        imgs.add(R.drawable.garlic);
+        imgs.add(R.drawable.cucumber);
+        imgs.add(R.drawable.feta);
+        imgs.add(R.drawable.lemon);
+        imgs.add(R.drawable.plumtomatoes);
+        imgs.add(R.drawable.pita);
+        imgs.add(R.drawable.olive);
 
-            for (int i = 0; i < 10 ; i++){
-                imgs.add( R.drawable.ic_launcher_foreground);
-            }
 
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
         fridgelistView = root.findViewById(R.id._fridge_inventory_list);
@@ -86,8 +111,7 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 addCartItem();
-                Snackbar.make(v, "Item Added To The Cart", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
         return root;
@@ -95,11 +119,15 @@ public class InventoryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
         inflater.inflate(R.menu.action_bar, menu);
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle item selection
         switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
             case R.id.inventory_search_button:
                 searchItem();
                 break;
@@ -120,6 +148,7 @@ public class InventoryFragment extends Fragment {
         builder.setView(v);
         final RadioButton name = v.findViewById(R.id.sort_by_form_name);
         final RadioButton date = v.findViewById(R.id.sort_by_form_date);
+        final RadioButton owner = v.findViewById(R.id.sort_by_form_owner);
 
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
@@ -128,39 +157,68 @@ public class InventoryFragment extends Fragment {
                 for(int i =0; i < list.size(); i++){
                     m.put(list.get(i), imgs.get(i));
                 }
-                if(name.isChecked()){
-                    Collections.sort(
-                            list,
-                            new Comparator<FoodItem>() {
-                                @Override
-                                public int compare(FoodItem f1, FoodItem f2) {
-                                    return f1.getName().compareTo(f2.getName());
-                                }
-                            });
-                    ArrayList <Integer> newImgList = new <Integer>ArrayList();
-                    for(int i =0; i < list.size(); i++){
-                        newImgList.add(m.get(list.get(i)));
-                    }
-                    imgs= newImgList;
+                if((name.isChecked() && !date.isChecked() && !owner.isChecked()) ||
+                        (!name.isChecked() && date.isChecked() && !owner.isChecked()) ||
+                        (!name.isChecked() && !date.isChecked() && owner.isChecked())
+                ){
+                    if(name.isChecked()){
+                        Collections.sort(
+                                list,
+                                new Comparator<FoodItem>() {
+                                    @Override
+                                    public int compare(FoodItem f1, FoodItem f2) {
+                                        return f1.getName().compareTo(f2.getName());
+                                    }
+                                });
+                        ArrayList <Integer> newImgList = new <Integer>ArrayList();
+                        for(int i =0; i < list.size(); i++){
+                            newImgList.add(m.get(list.get(i)));
+                        }
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
 
-                }
-                if(date.isChecked()){
-                    Collections.sort(
-                            list,
-                            new Comparator<FoodItem>() {
-                                @Override
-                                public int compare(FoodItem f1, FoodItem f2) {
-                                    return f1.getBuyDate().compareTo(f2.getBuyDate());
-                                }
-                            });
-                    ArrayList <Integer> newImgList = new <Integer>ArrayList();
-                    for(int i =0; i < list.size(); i++){
-                        newImgList.add(m.get(list.get(i)));
                     }
-                    imgs= newImgList;
+                    if(date.isChecked()){
+                        Collections.sort(
+                                list,
+                                new Comparator<FoodItem>() {
+                                    @Override
+                                    public int compare(FoodItem f1, FoodItem f2) {
+                                        return f1.getBuyDate().compareTo(f2.getBuyDate());
+                                    }
+                                });
+                        ArrayList <Integer> newImgList = new <Integer>ArrayList();
+                        for(int i =0; i < list.size(); i++){
+                            newImgList.add(m.get(list.get(i)));
+                        }
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
+                    }
+                    if(owner.isChecked()){
+                        Collections.sort(
+                                list,
+                                new Comparator<FoodItem>() {
+                                    @Override
+                                    public int compare(FoodItem f1, FoodItem f2) {
+                                        return f1.getOwner().compareTo(f2.getOwner());
+                                    }
+                                });
+                        ArrayList <Integer> newImgList = new <Integer>ArrayList();
+                        for(int i =0; i < list.size(); i++){
+                            newImgList.add(m.get(list.get(i)));
+                        }
+                        imgs.clear();
+                        for(int i =0; i < list.size(); i++){
+                            imgs.add(newImgList.get(i));
+                        }
+                    }
+                    arrayAdapter.notifyDataSetChanged();
                 }
-                arrayAdapter.notifyDataSetChanged();
-            }
+               }
         });
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -191,9 +249,9 @@ public class InventoryFragment extends Fragment {
                             return;
                         }
                     }
-                    etItem.setError("Item does not exist");
+                    showNoFoodItem(etItem.getText().toString().trim());
                 } else {
-                    etItem.setError("Item does not exist");
+                    showNoFoodItem(etItem.getText().toString().trim());
                 }
             }
         });
@@ -247,7 +305,32 @@ public class InventoryFragment extends Fragment {
 
         builder.show();
     }
+    private void showNoFoodItem(String itemName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(itemName + " was not found.");
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
+
+        builder.show();
+    }
+    private void addCartItemError(String area) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Item could not be added because "+ area +" is missing.");
+        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        builder.show();
+    }
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add New Item");
@@ -315,7 +398,18 @@ public class InventoryFragment extends Fragment {
                     arrayAdapter.notifyDataSetChanged();
 
                 } else {
-                    foodName.setError("add item here !");
+                    if(foodName.getText().toString().isEmpty()){
+                        addCartItemError("food name");
+                    }else if (foodAmount.getText().toString().isEmpty()){
+                        addCartItemError("food amount");
+                    }
+                    else if (foodDate.getText().toString().isEmpty()){
+                        addCartItemError("buy date");
+                    }
+                    else if (foodOwner.getText().toString().isEmpty()){
+                        addCartItemError("food owner");
+                    }
+
                 }
             }
         });

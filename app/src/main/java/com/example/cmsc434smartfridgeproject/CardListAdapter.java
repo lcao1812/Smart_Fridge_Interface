@@ -73,6 +73,7 @@ public class CardListAdapter extends BaseAdapter{
         TextView foodDate;
         TextView foodAmount;
         TextView foodAllergens;
+        TextView foodOwner;
         ImageView food_image;
         ImageButton incAmount;
         ImageButton decAmount;
@@ -89,15 +90,18 @@ public class CardListAdapter extends BaseAdapter{
         holder.foodDate=(TextView) rowView.findViewById(R.id.inventory_card_food_buy_date);
         holder.foodAmount=(TextView) rowView.findViewById(R.id.inventory_card_food_amount);
         holder.foodAllergens=(TextView) rowView.findViewById(R.id.inventory_card_food_allergen);
+        holder.foodOwner = (TextView) rowView.findViewById(R.id.inventory_card_food_owner);
         holder.food_image=(ImageView) rowView.findViewById(R.id.inventory_card_image);
         holder.incAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_increase_food_amount);
         holder.decAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_decrease_food_amount);
         holder.foodName.setText(result.get(position).getName());
 
         holder.foodDate.setText("Bought on " + formatter.format(result.get(position).getBuyDate()));
-        holder.foodAmount.setText(String.valueOf(result.get(position).getAmount()));
+        holder.foodAmount.setText("X "+ String.valueOf(result.get(position).getAmount()));
+        holder.foodOwner.setText("Owner: "+result.get(position).getOwner());
         StringBuilder foodAllergies = new StringBuilder();
         int i = 0;
+        foodAllergies.append("Food Allergens: ");
         for(String foodAllergy: result.get(position).getAllergens()){
             if(i < result.get(position).getAllergens().size() - 1){
                 foodAllergies.append(foodAllergy + ", ");

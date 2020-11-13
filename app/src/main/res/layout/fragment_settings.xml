@@ -1,173 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
-            android:textStyle="bold"
-            android:text="Set Language" />
-        <Spinner
-            android:id="@+id/setlanguagebutton"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="40dp"
-            android:text="Language" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height= "wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="50dp">
 
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
-            android:textStyle="bold"
-            android:text="Celcius/Fahrenheit" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin = "10dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <ToggleButton
-            android:id="@+id/setCorFbutton"
-            android:layout_width="350dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:text="setCorFbutton"
-            android:textOff="Celcius (Click to Change)"
-            android:textOn="Fahrenheit (Click to Change)" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:gravity="center"
+                    android:text="Set Language"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:layout_centerInParent="true"
-            android:textSize="23dp"
-            android:textStyle="bold"
-            android:text="Set Dietary Restrictions" />
+                <Spinner
+                    android:id="@+id/setlanguagebutton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center"
+                    android:text="Language" />
 
-        <CheckBox
-            android:id="@+id/checkBoxTreeNuts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Tree Nuts"
-            android:textSize="18dp"/>
+            </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/checkBoxGluten"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Gluten"
-            android:textSize="18dp"/>
+        </androidx.cardview.widget.CardView>
 
-        <CheckBox
-            android:id="@+id/checkBoxDairy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Dairy (Lactose) "
-            android:textSize="18dp"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height= "wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="50dp">
 
-        <CheckBox
-            android:id="@+id/checkBoxPeanuts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Peanuts"
-            android:textSize="18dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin ="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
-        <CheckBox
-            android:id="@+id/checkBoxShellfish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Shellfish"
-            android:textSize="18dp"/>
+                <TextView
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Celcius/Fahrenheit" />
 
-        <CheckBox
-            android:id="@+id/checkBoxSoy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="5dp"
-            android:text="Soy"
-            android:textSize="18dp"/>
+                <ToggleButton
+                    android:id="@+id/setCorFbutton"
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="setCorFbutton"
+                    android:gravity="center"
+                    android:textOff="Celcius (Click to Change)"
+                    android:textOn="Fahrenheit (Click to Change)" />
 
-        <TextView
-            android:layout_width="350dp"
-            android:layout_height="30dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="40dp"
-            android:fontFamily="@font/lato"
-            android:text="Set Time and Date"
-            android:textSize="23dp"
-            android:textStyle="bold"
-            />
+            </LinearLayout>
 
-        <EditText
-            android:id="@+id/editTextTime2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="100dp"
-            android:fontFamily="@font/roboto_light"
-            android:ems="10"
-            android:hint="Set time"
-            android:inputType="time"
-           />
+        </androidx.cardview.widget.CardView>
 
-        <EditText
-            android:id="@+id/editTextDate3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="100dp"
-            android:layout_marginBottom="100dp"
-            android:fontFamily="@font/roboto_light"
-            android:ems="10"
-            android:hint="Set date"
-            android:inputType="date"
-            />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height= "wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="50dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin ="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
 
+                <TextView
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Set Dietary Restrictions" />
+
+                <LinearLayout
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTreeNuts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Tree Nuts"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxGluten"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Gluten"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxDairy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Dairy (Lactose) "
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxPeanuts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Peanuts"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxShellfish"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Shellfish"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSoy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="Soy"
+                        android:fontFamily="@font/roboto_light"
+                        android:textSize="10pt"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height= "wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin ="10dp"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Set Time"
+                    android:gravity="center"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold"
+                    />
+
+                <TimePicker
+                    android:id="@+id/timePicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner"
+                    android:fontFamily="@font/roboto_light"/>
+
+                <TextView
+                    android:layout_width="350dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:text="Set Date"
+                    android:gravity="center"
+                    android:textSize="12.5pt"
+                    android:textStyle="bold"
+                    />
+
+                <DatePicker
+                    android:id="@+id/datePicker1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:calendarViewShown="false"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        
     </LinearLayout>
 
 </ScrollView>
