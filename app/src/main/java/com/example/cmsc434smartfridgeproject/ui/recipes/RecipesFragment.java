@@ -54,7 +54,7 @@ public class RecipesFragment extends Fragment {
         mRecipesListView = (ListView) book.findViewById(R.id.recipesListView);
 
         ArrayList<String> instructionsList = new ArrayList<>();
-        instructionsList.add("Back for 30 minutes.");
+        instructionsList.add("Bake for 30 minutes.");
         instructionsList.add("Sautee the tomatoes");
         instructionsList.add("Bake until 160 degrees F");
         instructionsList.add("Toss with the dressing");
