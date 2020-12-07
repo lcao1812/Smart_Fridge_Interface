@@ -6,11 +6,11 @@ import java.util.Date;
 import java.util.Set;
 
 public class FoodItem {
-    public FoodItem(String name, int amount, Date date, Set<String> allergens, String owner) throws ParseException {
+    public FoodItem(String name, int amount,  Date expdate, Set<String> allergens, String owner) throws ParseException {
         this.name = name;
         this.amount = amount;
         this.allergens = allergens;
-        this.buyDate = date;
+        this.expDate = expdate;
         this.owner = owner;
     }
 
@@ -30,14 +30,15 @@ public class FoodItem {
         this.amount = amount;
     }
 
-    public Date getBuyDate() {
-        return buyDate;
+
+
+    public Date getExpDate() {
+        return expDate;
     }
 
-    public void setBuyDate(String buyDate) throws ParseException {
-        this.buyDate = new SimpleDateFormat("MM dd, yyyy").parse(buyDate);
+    public void setExpDate(String expDate) throws ParseException {
+        this.expDate = new SimpleDateFormat("MM dd, yyyy").parse(expDate);
     }
-
     public Set<String> getAllergens() {
         return allergens;
     }
@@ -56,7 +57,7 @@ public class FoodItem {
 
     private String name;
     private int amount;
-    private Date buyDate;
+    private Date expDate;
     private Set allergens;
     private String owner;
 }

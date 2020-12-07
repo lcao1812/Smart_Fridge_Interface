@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/edit_item"
+        android:icon="@drawable/ic_baseline_search_24"
+        android:title="Edit"
+        android:textSize="@dimen/text_size_small"
+        android:fontFamily="@font/lato"
+      />
+
+    <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/delete_item"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:textSize="@dimen/text_size_small"
+        android:fontFamily="@font/lato"
+        android:title="Delete" />
+
+</menu>

@@ -19,7 +19,7 @@
             />
 
         <EditText
-            android:id="@+id/addFoodName"
+            android:id="@+id/editFoodName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -46,7 +46,7 @@
                 android:fontFamily="@font/roboto_light"
                 />
         <EditText
-            android:id="@+id/addFoodAmount"
+            android:id="@+id/editFoodAmount"
             android:padding="10dp"
             android:layout_margin="4dp"
             android:hint="Add Amount"
@@ -79,7 +79,7 @@
                     android:textSize="@dimen/text_size_small"
                     android:fontFamily="@font/roboto_light"/>
                 <EditText
-                    android:id="@+id/addFoodDate"
+                    android:id="@+id/editFoodDate"
                     android:padding="10dp"
                     android:layout_margin="4dp"
                     android:hint="mm/dd/yy"
@@ -119,11 +119,11 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensDairy"
+                    android:id="@+id/editFoodAllergensDairy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/addFoodAllergensDairyText"
+                    android:id="@+id/editFoodAllergensDairyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Dairy"
@@ -137,11 +137,11 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensGluten"
+                    android:id="@+id/editFoodAllergensGluten"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/addFoodAllergensGlutenText"
+                    android:id="@+id/editFoodAllergensGlutenText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Gluten"
@@ -155,11 +155,11 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensPeanut"
+                    android:id="@+id/editFoodAllergensPeanut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/addFoodAllergensPeanutText"
+                    android:id="@+id/editFoodAllergensPeanutText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Peanut"
@@ -181,12 +181,12 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensTreeNut"
+                    android:id="@+id/editFoodAllergensTreeNut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
                 <TextView
-                    android:id="@+id/addFoodAllergensTreeNutText"
+                    android:id="@+id/editFoodAllergensTreeNutText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tree nut"
@@ -200,11 +200,11 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensShellfish"
+                    android:id="@+id/editFoodAllergensShellfish"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/addFoodAllergensShellfishText"
+                    android:id="@+id/editFoodAllergensShellfishText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shellfish"
@@ -218,11 +218,11 @@
                 android:orientation="horizontal"
                 >
                 <CheckBox
-                    android:id="@+id/addFoodAllergensSoy"
+                    android:id="@+id/editFoodAllergensSoy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <TextView
-                    android:id="@+id/addFoodAllergensSoyText"
+                    android:id="@+id/editFoodAllergensSoyText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Soy"
@@ -246,7 +246,7 @@
             android:textSize="@dimen/text_size_small"
             android:fontFamily="@font/roboto_light"/>
         <EditText
-            android:id="@+id/addFoodOwner"
+            android:id="@+id/editFoodOwner"
             android:padding="10dp"
             android:layout_margin="4dp"
             android:hint="Add Owner"

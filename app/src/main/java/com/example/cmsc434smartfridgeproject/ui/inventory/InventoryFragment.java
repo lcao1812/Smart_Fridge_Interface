@@ -1,15 +1,19 @@
 package com.example.cmsc434smartfridgeproject.ui.inventory;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -34,6 +38,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -59,6 +64,7 @@ public class InventoryFragment extends Fragment {
 
         actionBar.setDisplayShowHomeEnabled(true);
         setHasOptionsMenu(true);
+
         inventoryViewModel =
                 ViewModelProviders.of(this).get(InventoryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_inventory, container, false);
@@ -106,6 +112,7 @@ public class InventoryFragment extends Fragment {
         arrayAdapter = new CardListAdapter(getActivity().getApplicationContext(), getActivity(), R.layout.inventory_list_card, list, imgs);
         fridgelistView = root.findViewById(R.id._fridge_inventory_list);
         fridgelistView.setAdapter(arrayAdapter);
+
         addItemButton = root.findViewById(R.id.inventory_add_button);
         addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +146,8 @@ public class InventoryFragment extends Fragment {
         }
         return true;
     }
+
+
     private void sortItems() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Search for a item");
@@ -186,7 +195,7 @@ public class InventoryFragment extends Fragment {
                                 new Comparator<FoodItem>() {
                                     @Override
                                     public int compare(FoodItem f1, FoodItem f2) {
-                                        return f1.getBuyDate().compareTo(f2.getBuyDate());
+                                        return  - f1.getExpDate().compareTo(f2.getExpDate());
                                     }
                                 });
                         ArrayList <Integer> newImgList = new <Integer>ArrayList();
@@ -274,13 +283,13 @@ public class InventoryFragment extends Fragment {
         builder.setView(v);
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
         TextView foodName=(TextView) v.findViewById(R.id.inventory_card_food_name);
-        TextView foodDate=(TextView) v.findViewById(R.id.inventory_card_food_buy_date);
+        TextView foodDate=(TextView) v.findViewById(R.id.inventory_card_food_exp_date);
         TextView foodAmount=(TextView) v.findViewById(R.id.inventory_card_food_amount);
         TextView foodAllergens=(TextView) v.findViewById(R.id.inventory_card_food_allergen);
         ImageView food_image=(ImageView) v.findViewById(R.id.inventory_card_image);
         foodName.setText(f.getName());
 
-        foodDate.setText("Bought on " + formatter.format(f.getBuyDate()));
+        foodDate.setText("Bought on " + formatter.format(f.getExpDate()));
         foodAmount.setText(String.valueOf(f.getAmount()));
         StringBuilder foodAllergies = new StringBuilder();
         int i = 0;
@@ -331,6 +340,11 @@ public class InventoryFragment extends Fragment {
 
         builder.show();
     }
+    private void updateLabel(EditText editText, Calendar calendar) {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+
+        editText.setText(formatter.format(calendar.getTime()));
+    }
     private void addCartItem() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add New Item");
@@ -358,18 +372,42 @@ public class InventoryFragment extends Fragment {
                 v.findViewById(R.id.addFoodAllergensSoyText)
         };
         final EditText foodOwner= v.findViewById(R.id.addFoodOwner);
-        final ImageButton todayButton = v.findViewById(R.id.addFoodDateTodayButton);
+        final Calendar myCalendar = Calendar.getInstance();
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
-        todayButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel(foodDate, myCalendar);
+            }
+
+        };
+
+        foodDate.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
-                // Function to add Item here
-                Date today = new Date();
-                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
-                foodDate.setText(formatter.format(today));
+                // TODO Auto-generated method stub
+                new DatePickerDialog(getContext(), date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+//        todayButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DatePickerDialog.Builder dateDialogBuilder = new DatePickerDialog.Builder(getActivity());
+//                // Function to add Item here
+//                Date today = new Date();
+//                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+//
+//                foodDate.setText(formatter.format(today));
+//            }
+//        });
         builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
