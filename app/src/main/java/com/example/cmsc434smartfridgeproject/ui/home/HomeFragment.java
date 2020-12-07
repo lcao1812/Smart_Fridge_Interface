@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
         setHasOptionsMenu(false);
 
         // Display Current Information
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy");
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa");
         Date today = new Date();
         final TextView temp = root.findViewById(R.id.home_temp);
