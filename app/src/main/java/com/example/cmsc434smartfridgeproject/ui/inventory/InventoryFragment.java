@@ -3,6 +3,7 @@ package com.example.cmsc434smartfridgeproject.ui.inventory;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -121,8 +123,39 @@ public class InventoryFragment extends Fragment {
 
             }
         });
+        ArrayList<FoodItem> expired = new ArrayList<FoodItem>();
+        for(FoodItem f:list){
+            if(checkExpired(f.getExpDate())){
+                expired.add(f);
+            }
+        }
+        if(expired.size() > 0){
+            StringBuilder b = new StringBuilder();
+            b.append("The following item(s) are expired ");
+            int i = 0;
+            for(FoodItem f:expired){
+                if(i < expired.size() - 1){
+                    b.append(f.getName() + ", ");
+                }else{
+                    b.append(f.getName());
+                }
+                i++;
+            }
+
+            Toast.makeText(getActivity(), b.toString(),
+                    Toast.LENGTH_LONG).show();
+
+        }
         return root;
     }
+    private  boolean checkExpired(Date date){
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.getTime().compareTo(date) > 0){
+            return true;
+        }
+        return  false;
+    }
+
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Inflate the menu items for use in the action bar
         inflater.inflate(R.menu.action_bar, menu);
@@ -276,9 +309,9 @@ public class InventoryFragment extends Fragment {
     }
     private void showFoodItem(FoodItem f, int imageId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Search for a item");
+        builder.setTitle("Search for an item");
 
-        View v = LayoutInflater.from(getActivity()).inflate(R.layout.inventory_list_card, null, false);
+        View v = LayoutInflater.from(getActivity()).inflate(R.layout.inventory_search_item_result, null, false);
 
         builder.setView(v);
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -286,12 +319,18 @@ public class InventoryFragment extends Fragment {
         TextView foodDate=(TextView) v.findViewById(R.id.inventory_card_food_exp_date);
         TextView foodAmount=(TextView) v.findViewById(R.id.inventory_card_food_amount);
         TextView foodAllergens=(TextView) v.findViewById(R.id.inventory_card_food_allergen);
+        TextView foodOwner=(TextView) v.findViewById(R.id.inventory_card_food_owner);
         ImageView food_image=(ImageView) v.findViewById(R.id.inventory_card_image);
         foodName.setText(f.getName());
 
-        foodDate.setText("Bought on " + formatter.format(f.getExpDate()));
+        foodDate.setText("Expires on " + formatter.format(f.getExpDate()));
+        if(checkExpired(f.getExpDate())){
+            foodDate.setText("Item is Expired");
+            foodDate.setTextColor(Color.RED);
+        }
         foodAmount.setText(String.valueOf(f.getAmount()));
         StringBuilder foodAllergies = new StringBuilder();
+        foodAllergies.append("Food Allergens: ");
         int i = 0;
         for(String foodAllergy: f.getAllergens()){
             if(i < f.getAllergens().size() - 1){
@@ -301,7 +340,10 @@ public class InventoryFragment extends Fragment {
             }
             i++;
         }
-
+        if(i == 0){
+            foodAllergies.append("none");
+        }
+        foodOwner.setText("Owner: "+f.getOwner());
         foodAllergens.setText(foodAllergies.toString());
         food_image.setImageResource(imageId);
         builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
@@ -328,17 +370,8 @@ public class InventoryFragment extends Fragment {
         builder.show();
     }
     private void addCartItemError(String area) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Item could not be added because "+ area +" is missing.");
-        builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-
-        builder.show();
+        Toast.makeText(getActivity(), "Item could not be added because "+ area +" is missing.",
+                Toast.LENGTH_LONG).show();
     }
     private void updateLabel(EditText editText, Calendar calendar) {
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
@@ -346,9 +379,9 @@ public class InventoryFragment extends Fragment {
         editText.setText(formatter.format(calendar.getTime()));
     }
     private void addCartItem() {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Add New Item");
-
         View v = LayoutInflater.from(getActivity()).inflate(R.layout.add_food_item_form, null, false);
 
         builder.setView(v);
@@ -397,23 +430,35 @@ public class InventoryFragment extends Fragment {
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-//        todayButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DatePickerDialog.Builder dateDialogBuilder = new DatePickerDialog.Builder(getActivity());
-//                // Function to add Item here
-//                Date today = new Date();
-//                SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-//
-//                foodDate.setText(formatter.format(today));
-//            }
-//        });
-        builder.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("Add",
+                new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        //Do nothing here because we override this button later to change the close behaviour.
+                        //However, we still need this because on older versions of Android unless we
+                        //pass a handler the button doesn't get instantiated
+                    }
+                });
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+//Overriding the handler immediately after show is probably a better approach than OnShowListener as described below
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                Boolean wantToCloseDialog = false;
                 if (!foodName.getText().toString().isEmpty() && !foodAmount.getText().toString().isEmpty()
-                && !foodDate.getText().toString().isEmpty()
-                && !foodOwner.getText().toString().isEmpty()) {
+                        && !foodDate.getText().toString().isEmpty()
+                        && !foodOwner.getText().toString().isEmpty()) {
                     try {
                         HashSet <String> foodAllergies = new HashSet<String>();
                         for(int i = 0; i < foodAllergens.length;i++){
@@ -422,20 +467,25 @@ public class InventoryFragment extends Fragment {
                             }
                         }
                         list.add(
-                            new FoodItem(
-                                    foodName.getText().toString().trim(),
-                                    Integer.parseInt(foodAmount.getText().toString().trim()),
-                                    new SimpleDateFormat("MM/dd/yyyy").parse(foodDate.getText().toString().trim()),
-                                    foodAllergies,
-                                    foodOwner.getText().toString().trim())
-                            );
+                                new FoodItem(
+                                        foodName.getText().toString().trim(),
+                                        Integer.parseInt(foodAmount.getText().toString().trim()),
+                                        new SimpleDateFormat("MM/dd/yyyy").parse(foodDate.getText().toString().trim()),
+                                        foodAllergies,
+                                        foodOwner.getText().toString().trim())
+                        );
                         imgs.add(R.drawable.ic_launcher_foreground);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                     arrayAdapter.notifyDataSetChanged();
-
-                } else {
+                    wantToCloseDialog = true;
+                }
+                if(wantToCloseDialog) {
+                    Toast.makeText(getActivity(), "Item has been successfully added.",
+                            Toast.LENGTH_LONG).show();
+                    dialog.dismiss();
+                }else {
                     if(foodName.getText().toString().isEmpty()){
                         addCartItemError("food name");
                     }else if (foodAmount.getText().toString().isEmpty()){
@@ -449,17 +499,9 @@ public class InventoryFragment extends Fragment {
                     }
 
                 }
+                //else dialog stays open. Make sure you have an obvious way to close the dialog especially if you set cancellable to false.
             }
         });
-
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.show();
     }
 
 

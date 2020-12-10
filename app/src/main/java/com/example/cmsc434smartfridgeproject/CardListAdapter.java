@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.LayoutRes;
 import androidx.cardview.widget.CardView;
 
@@ -104,8 +106,11 @@ public class CardListAdapter extends BaseAdapter{
         holder.incAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_increase_food_amount);
         holder.decAmount=(ImageButton) rowView.findViewById(R.id.inventory_card_decrease_food_amount);
         holder.foodName.setText(result.get(position).getName());
-
         holder.foodExpDate.setText("Expires on " + formatter.format(result.get(position).getExpDate()));
+        if(checkExpired(result.get(position).getExpDate())){
+            holder.foodExpDate.setText("Item is Expired");
+            holder.foodExpDate.setTextColor(Color.RED);
+        }
         holder.foodAmount.setText("X "+ String.valueOf(result.get(position).getAmount()));
         holder.foodOwner.setText("Owner: "+result.get(position).getOwner());
         StringBuilder foodAllergies = new StringBuilder();
@@ -129,7 +134,7 @@ public class CardListAdapter extends BaseAdapter{
 
                 int amount= result.get(position).getAmount() + 1;
                 result.get(position).setAmount(amount);
-                ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
+                ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText("X "+String.valueOf(amount));
             }
         });
         holder.decAmount.setOnClickListener(new OnClickListener() {
@@ -139,10 +144,10 @@ public class CardListAdapter extends BaseAdapter{
 
                 int amount= result.get(position).getAmount()-1 > 0 ? result.get(position).getAmount() - 1 : 0;
                 if(amount == 0){
-                    remove(position);
+                    deleteItem(position);
                 }else {
                     result.get(position).setAmount(amount);
-                    ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText(String.valueOf(amount));
+                    ((TextView) rowView.findViewById(R.id.inventory_card_food_amount)).setText("X "+String.valueOf(amount));
                 }
 
             }
@@ -157,6 +162,14 @@ public class CardListAdapter extends BaseAdapter{
         });
         return rowView;
     }
+    private  boolean checkExpired(Date date){
+        Calendar calendar = Calendar.getInstance();
+        if (calendar.getTime().compareTo(date) > 0){
+            return true;
+        }
+        return  false;
+    }
+
     private  void menuOptions(View view , final int position){
         final AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         View v = LayoutInflater.from(mainActivity).inflate(R.layout.inventory_item_options, null, false);
@@ -194,6 +207,9 @@ public class CardListAdapter extends BaseAdapter{
             }
         });
         builder.show();
+        Toast.makeText(mainActivity, "Item has been successfully deleted.",
+                Toast.LENGTH_LONG).show();
+
     }
     private void deleteItem(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
